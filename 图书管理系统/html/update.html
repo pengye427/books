@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        html{
+            background: url(../img/3.jpg) no-repeat;
+            background-size: cover;
+        }
+        div {
+            width: 1000px;
+            margin: 0 auto;
+            color: #fff;
+            margin-left: 454px;
+        }
+        form{
+            font-size: 23px;
+        }
+        input {
+            margin: 10px 0;
+            width: 250px;
+            height: 30px;
+            line-height: 30px;
+            border: none;
+            outline: none;
+            font-size:16px;
+        }
+
+        textarea {
+            height: 161px;
+            width: 250px;
+            resize: none;
+            vertical-align: top;
+            color: #000;
+        }
+        .ae {
+            width: 100px;
+            height: 20px;
+            line-height: 20px;
+        }
+        h1{
+            margin-left: 85px;
+            font-size: 34px;
+            font-weight: normal;
+        }
+        span {
+            display: inline-block;
+            height: 161px;
+            line-height: 161px;
+        }
+
+        .we {
+            background-color: royalblue;
+            outline: none;
+            border: 1px solid #fff;
+            color: #fff;
+            font-size: 24px;
+            line-height: 44px;
+            height: 44px;
+            width: 192px;
+            margin-left: 79px;
+        }
+        button {
+            background-color: #80e083;
+            border: none;
+            font-size: 18px;
+            position: absolute;
+            width: 62px;
+            outline: none;
+            height: 28px;
+            margin: 33px -131px;
+            cursor: pointer;
+            color: #000;
+        }
+        button:hover {
+            background-color: #80e083
+        }
+
+        button:active {
+            background-color: #5dc060;
+            box-shadow: 0 5px white;
+            transform: translateY(4px);
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <button id="btn">返回</button>
+        <a href=""></a>
+        <h1>修改书籍</h1>
+        <!-- 修改数据库的数据 -->
+        <form action="../php/books.php" method="GET">
+            书名：<input name="name"><br>
+            价格：<input name="price"><br>
+            数量：<input name="count"><br>
+            作者：<input name="zuozhe"><br>
+            简介：<input name="jianjie"><br>
+            <span>内容：</span><textarea name="content" id="er">cvhgkj</textarea><br>
+            vip：<input name="vip" type="radio" class="ae" value="1" id="vip">是
+            <input name="vip" type="radio" class="ae" value="0">否<br>
+            <input type="hidden" name="hide" value="3">
+            <input type="hidden" name="id" value="" id="q">
+            <input type="submit" class="we">
+        </form>
+    </div>
+        <script>
+            // 修改数据库 打开页面吧数据库内容显示在页面上
+            var ae = document.getElementsByClassName("ae");
+            q.value=sessionStorage["row"];
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "../php/books.php?hide=2&id="+sessionStorage["row"]);
+            xhr.send(null);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    var arr = JSON.parse(xhr.responseText);
+                    
+                    for (var i in arr) {
+                        if (i == arr.length - 1) {
+                            if (arr[i]== 1) {
+                                ae[0].checked = "checked";
+                            } else {
+                                ae[1].checked = "checked";
+                            }
+                        }
+                        
+                        
+                        var inps = document.getElementsByTagName("input");
+                        inps[i].value = arr[i];
+                        vip.value=1;
+                    }
+                    er.innerHTML=arr[5]
+                    console.log();
+                }
+            }
+            btn.onclick=function(){
+                location="首页.html"
+            }
+        </script>
+    </div>
+</body>
+
+</html>

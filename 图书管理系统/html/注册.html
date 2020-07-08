@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            background: url(../img/3.jpg) no-repeat;
+            background-size: cover;
+            color: white;
+        }
+        form {
+            font-size: 23px;
+            margin-top: -127px;
+        }
+        div {
+            width: 787px;
+            margin: 0 auto;
+            color: #fff;
+            margin-left: 454px;
+        }
+        input {
+            margin: 30px 0;
+            width: 250px;
+            height: 30px;
+            line-height: 30px;
+            border: none;
+            outline: none;
+            font-size: 16px;
+        }
+
+        h1 {
+            margin-left: 99px;
+            font-size: 42px;
+            font-weight: normal;    
+            height: 176px;
+        }
+
+        .ae {
+            width: 100px;
+            height: 20px;
+            line-height: 20px;
+        }
+        .we {
+            background-color: royalblue;
+            outline: none;
+            border: 1px solid #fff;
+            color: #fff;
+            font-size: 24px;
+            line-height: 44px;
+            height: 44px;
+            width: 192px;
+            margin-left: 79px;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <h1>注册</h1>
+        <form action="../php/books.php" method="GET" id="form">
+            用户名：<input name="name" id="nam"><span id="span"></span><br>
+            &nbsp;&nbsp;&nbsp;密码：<input name="pwd"><br>
+            邮箱名：<input name="email"><br>
+            是否加入会员:<input name="vip" type="radio" value="1" class="ae">是
+            <input name="vip" type="radio" value="0" class="ae">否<br>
+            <input type="hidden" name="hide" id="" value="6">
+            <input type="submit" class="we">
+        </form>
+    </div>
+
+    <script>
+        // 创建ajax  去数据库看输入的和用户名的名字有没有重复
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "../php/books.php?hide=5");
+        xhr.send(null);
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                var arr = JSON.parse(xhr.responseText);
+                nam.onblur = function () {
+                    for (var i = 0; i < arr.length; i++) {
+                        if (arr[i] == nam.value) {
+                            span.innerHTML = "用户名太受欢迎，请重新输入";
+                            span.style.color = "red";
+                            return false;
+                        }
+                    }
+                    span.innerHTML = "用户名可用"
+                    span.style.color = "green";
+
+                }
+            }
+        }
+        form.onsubmit = function () {
+            if (span.style.cloor == "red" || nam.value == "") {
+                return false;
+            }
+        }
+    </script>
+</body>
+
+</html>

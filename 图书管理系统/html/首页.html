@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            background: url(../img/3.jpg) no-repeat;
+            background-size: cover;
+            color: white;
+        }
+        a {
+            color: #fff;
+            text-decoration: none;
+            margin-left: 20px;
+            display: inline-block;
+            font-size: 30px;
+        }
+
+        #d1 {
+            margin: 0 auto;
+            margin: -43px 0 20px 107px;
+            font-size: 30px;
+        }
+
+        table {
+            width: 1036px;
+            border: 1px solid #fff;
+            table-layout: fixed;
+            border-collapse: collapse;
+            text-align: center;
+            white-space: nowrap;
+            margin: 0 auto;
+            color: #333;
+        }
+
+        h1 {
+            margin-left: 456px;
+            font-size: 50px;
+            font-weight: normal;
+            color: ghostwhite;
+            text-shadow: 5px -5px deepskyblue, 4px -4px dodgerblue;
+            font-weight: bold;
+        }
+        h2{
+            margin-left: 456px;
+            margin-top: 44px;
+            font-size: 36px;
+            font-weight: normal;
+            margin-left:543px;
+            display: block;
+        }
+        td {
+            border: 1px solid #000;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .sele {
+            top: -292px;
+            margin-left: 838px;
+            position: absolute;
+            top: 10px;
+        }
+        img {
+            width: 50px;
+            height: 50px;
+            position: relative;
+            top: 10px;
+            border-radius: 50%;
+        }
+
+        #btn {
+            display: none;
+            margin: -61px 0 20px 125px;
+        }
+
+        button {
+            float: left;
+            position: relative;
+            background-color: #4CAF50;
+            border: none;
+            font-size: 18px;
+            color: #FFFFFF;
+            width: 81px;
+            text-align: center;
+            outline: none;
+            opacity: .7;
+            margin-left: 34px;
+            height: 23px;
+            margin: 4px 30px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #3e8e41
+        }
+
+        button:active {
+            background-color: #3e8e41;
+            box-shadow: 0 5px white;
+            transform: translateY(4px);
+        }
+    </style>
+</head>
+
+<body id="bd">
+
+<h1>图书管理系统</h1>
+<h2 id="h2">请登录!</h2>
+<div id="d1">
+    <div class="sele">
+        <a href="登录.html">登录</a>
+        <a href="注册.html">注册</a>
+    </div>
+</div>
+<button id="btn">增加</button>
+<script>
+    var table = document.getElementsByTagName("table")[0];
+    // 在登录状态下 
+    if (sessionStorage["name"]) {
+        h2.style.display="none";
+        d1.innerHTML = sessionStorage["name"] + "<img>欢迎您<a href='javascript:sessionStorage.clear();location.reload();'>退出</a>";
+        var img = document.getElementsByTagName("img")[0];
+        d1.style.marginLeft = "872" + "px";
+        var vip = sessionStorage["vip"];
+        // 创建ajax，根据用户名去数据库查看是不是vip   设置vip的可以看vip的书  
+        var xhr2 = new XMLHttpRequest();
+        xhr2.open("GET", "../php/books.php?hide=0&name=" + sessionStorage["name"]);
+        xhr2.send(null);
+        xhr2.onreadystatechange = function () {
+            if (vip == 1) {
+                img.src = "/图书管理系统/img/1.jpg";
+                btn.style.display = "block"
+            } else {
+                img.src = "/图书管理系统/img/2.jpg";
+                btn.style.display = "none"
+            }
+            if (xhr2.readyState == 4 && xhr2.status == 200) {
+                // 获取传过来的数据来渲染页面  生成表格
+                var arr = JSON.parse(xhr2.responseText);
+                var table = document.createElement("table");
+                var tr = document.createElement("tr");
+                for (var i in arr[0]) {
+                    var td = document.createElement("td");
+                    td.innerHTML = i;
+                    tr.appendChild(td);
+                }
+                var td = document.createElement("td");
+                td.innerHTML = "设置"
+                tr.appendChild(td);
+                table.appendChild(tr);
+
+                for (var i = 0; i < arr.length; i++) {
+                    var tr = document.createElement("tr");
+                    for (var j in arr[i]) {
+                        var td = document.createElement("td");
+                        td.innerHTML = arr[i][j];
+                        tr.appendChild(td);
+                    }
+                    var td = document.createElement("td");
+                    if (vip == 1) {
+                        td.innerHTML = "<button class='bt' onclick=modify(this)>修改</button><button  class='btt' onclick=del(this)>删除</button><button class='bttt' onclick=acc(this)>阅读</button>";
+                    } else {
+                        td.innerHTML = "<button class='yd'>阅读</button>"
+                    }
+
+                    tr.appendChild(td);
+                    table.appendChild(tr)
+                    bd.appendChild(table);
+                }
+                // 找button设置颜色
+                var bts = document.getElementsByClassName("bt");
+                var btts = document.getElementsByClassName("btt");
+                var bttts = document.getElementsByClassName("bttt");
+                if (vip == 1) {
+                    for (var i = 0; i < bts.length; i++) {
+                        bts[i].style.backgroundColor = "#008CBA";
+                        btts[i].style.backgroundColor = "#f44336";
+                        bttts[i].style.backgroundColor = "#4CAF50";
+                    }
+                } else {
+                    var yds = document.getElementsByClassName("yd");
+                    for (var i = 0; i < yds.length; i++) {
+                        yds[i].style.backgroundColor = "#4CAF50";
+                    }
+                }
+            }
+        }
+    }
+    // 点击修改页面的时候
+    btn.onclick = function () {
+        location = "./inrest.html"
+    }
+    // 点击删除页面的时候
+    function modify(x) {
+        var row = x.parentNode.parentNode.firstElementChild.innerHTML;
+        sessionStorage['row'] = row;
+        location = "update.html";
+    }
+    // 点击删除页面的时候
+    function del(x) {
+        var id = x.parentNode.parentNode.firstElementChild.innerHTML;
+        var xhr1 = new XMLHttpRequest();
+        xhr1.open("GET", "../php/books.php?hide=4&id=" + id);
+        xhr1.send(null);
+        xhr1.onreadystatechange = function () {
+            if (xhr1.readyState == 4 && xhr1.status == 200) {
+                sessionStorage['py'] = "删除成功";
+                location = "success.html";
+            }
+        }
+    }
+    // 点击阅读按钮的时候
+    function  acc(x){
+        var id = x.parentNode.parentNode.firstElementChild.innerHTML;
+        var xhry = new XMLHttpRequest();
+        xhry.open("GET", "../php/books.php?hide=8&id=" + id);
+        xhry.send(null);
+        xhry.onreadystatechange = function () {
+            if (xhry.readyState == 4 && xhry.status == 200) {
+                var arr = JSON.parse(xhry.responseText);
+                sessionStorage['content']=arr[0];
+                location = "阅读.html";
+            }
+        }
+    }
+
+</script>
+</body>
+
+</html>

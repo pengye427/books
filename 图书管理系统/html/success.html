@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div{
+            width: 1000px;
+            margin:0 auto;
+        }
+        h1{
+            width: 1000px;
+            text-align: center;
+        }
+        span{
+            display: block;
+            width: 1000px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <h1 id="h1"></h1>
+    <span>5秒后跳转首页<a href="首页.html">立即跳转</a></span>
+    
+</div>
+    <script>
+        var span=document.getElementsByTagName("span")[0]
+            //因为获取到的是编码过的   需要解码后才能操作
+			h1.innerHTML=sessionStorage.py;
+            function aa(){
+                setTimeout(()=>{
+                    var num=parseInt(span.innerHTML)-1;
+                    if(num>0){
+                        span.innerHTML=num+"秒后跳转<a href='首页.html'>立即跳转</a>";
+                        aa();
+                    }else{
+                        location=`首页.html`;
+                    }
+                },1000)
+            }
+            aa();
+    </script>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        textarea{
+            height: 161px;
+            width: 250px;
+            resize:none;
+            vertical-align: top;
+        }
+        
+        body {
+            background: url(../img/3.jpg) no-repeat;
+            background-size: cover;
+            color: white;
+        }
+        form {
+            font-size: 23px;
+            margin-top: -127px;
+        }
+        div {
+            width: 787px;
+            margin: 0 auto;
+            color: #fff;
+            margin-left: 454px;
+        }
+        input {
+            margin: 10px 0;
+            width: 250px;
+            height: 30px;
+            line-height: 30px;
+            border: none;
+            outline: none;
+            font-size: 16px;
+        }
+
+        h1 {
+            margin-left: 99px;
+            font-size: 42px;
+            font-weight: normal;    
+            height: 176px;
+        }
+
+        .ae {
+            width: 100px;
+            height: 20px;
+            line-height: 20px;
+        }
+        .we {
+            background-color: royalblue;
+            outline: none;
+            border: 1px solid #fff;
+            color: #fff;
+            font-size: 24px;
+            line-height: 44px;
+            height: 44px;
+            width: 192px;
+            margin-left: 79px;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <a href=""></a>
+        <h1>新增书籍</h1>
+        <!-- 将input中的值传入到数据库中 -->
+        <form action="../php/books.php" method="GET">
+            书名：<input name="name"><br>
+            价格：<input name="price"><br>
+            数量：<input name="count"><br>
+            作者：<input name="zuozhe"><br>
+            简介：<input name="jianjie"><br>
+            <span>内容：</span><textarea name="content"></textarea><br>
+            vip：<input name="vip" type="radio" class="ae" value="1">是
+            <input name="vip" type="radio" class="ae" value="0">否<br>
+            <input type="hidden" name="hide" value="1">
+            <input type="submit" class="we">
+        </form>
+    </div>
+    <script>
+        
+    </script>
+</body>
+</html>

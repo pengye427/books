@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            background: url(../img/3.jpg) no-repeat;
+            background-size: cover;
+            color: white;
+        }
+        div{
+            width: 1000px;
+            margin:0 auto;
+        }
+        h1{
+            width: 1000px;
+            font-weight: normal;
+            text-align: center;
+            font-size: 50px;
+        }
+        p{
+            line-height: 50px;
+            text-indent: 2em;
+            font-size: 18px;
+            margin-top: 63px;
+        }
+        button {
+            background-color: #80e083;
+            border: none;
+            font-size: 18px;
+            position: absolute;
+            width: 77px;
+            outline: none;
+            height: 42px;
+            margin: 31px 36px;
+            cursor: pointer;
+            color: #000;
+        }
+        button:hover {
+            background-color: #80e083
+        }
+
+        button:active {
+            background-color: #5dc060;
+            box-shadow: 0 5px white;
+            transform: translateY(4px);
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <button id="btn">返回</button>
+        <h1>内容</h1>
+        <p></p>
+    </div>
+    <script>
+        var p=document.getElementsByTagName("p")[0];
+        p.innerHTML=sessionStorage.content;
+        btn.onclick=function(){
+                location="首页.html"
+            }
+    </script>
+</body>
+</html>
